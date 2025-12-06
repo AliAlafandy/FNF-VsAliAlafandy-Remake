@@ -9,9 +9,8 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
-
-	public static var modVersion:String = '1.5.0';
-	public static var psychEngineVersion:String = '6.9.9'; // This is also used for Discord RPC
+	public static var modsEngineVersion:String = '6.9.9'; // This is also used for Discord RPC
+	public static var funkinVersion:String = '0.2.8';
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -111,15 +110,15 @@ class MainMenuState extends MusicBeatState
 		// char6.setGraphicSize(Std.int(char6.width * 1));
 		add(char6);
 
-		var modVer:FlxText = new FlxText(12, FlxG.height - 64, 0, "Vs Ali Alafandy v" + modVersion, 12);
+		var modVer:FlxText = new FlxText(12, FlxG.height - 64, 0, "Vs Ali Alafandy v" + Application.current.meta.get('version'), 12);
 		modVer.scrollFactor.set();
 		modVer.setFormat("VCR OSD Mono", 16, FlxColor.BLUE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(modVer);
-		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Mods Engine v" + psychEngineVersion, 12);
-		psychVer.scrollFactor.set();
-		psychVer.setFormat("VCR OSD Mono", 16, FlxColor.BLUE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(psychVer);
-		var fnfVer:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
+		var modsVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Mods Engine v" + modsEngineVersion, 12);
+		modsVer.scrollFactor.set();
+		modsVer.setFormat("VCR OSD Mono", 16, FlxColor.BLUE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(modsVer);
+		var fnfVer:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + funkinVersion, 12);
 		fnfVer.scrollFactor.set();
 		fnfVer.setFormat("VCR OSD Mono", 16, FlxColor.BLUE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(fnfVer);

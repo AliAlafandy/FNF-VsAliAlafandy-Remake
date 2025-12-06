@@ -138,7 +138,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			MobileData.forcedMode = null;
 			close();
 		});
-		exit.color = FlxColor.LIME;
+		exit.color = FlxColor.BLUE;
 		exit.setGraphicSize(Std.int(exit.width) * 3);
 		exit.updateHitbox();
 		exit.x = FlxG.width - exit.width - 70;

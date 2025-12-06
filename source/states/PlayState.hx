@@ -38,10 +38,15 @@ import openfl.filters.ShaderFilter;
 #end
 
 #if VIDEOS_ALLOWED
-#if (hxCodec >= "3.0.0") import hxcodec.flixel.FlxVideo as VideoHandler;
-#elseif (hxCodec >= "2.6.1") import hxcodec.VideoHandler as VideoHandler;
-#elseif (hxCodec == "2.6.0") import VideoHandler;
-#else import vlc.MP4Handler as VideoHandler; #end
+#if (hxCodec >= "3.0.0")
+import hxcodec.flixel.FlxVideo as VideoHandler;
+#elseif (hxCodec >= "2.6.1")
+import hxcodec.VideoHandler as VideoHandler;
+#elseif (hxCodec == "2.6.0")
+import VideoHandler;
+#else
+import vlc.MP4Handler as VideoHandler;
+#end
 #end
 
 import objects.Note.EventNote;
@@ -209,6 +214,8 @@ class PlayState extends MusicBeatState
 	public var camOther:FlxCamera;
 	public var luaTpadCam:FlxCamera;
 	public var cameraSpeed:Float = 1;
+	
+	public var dancingLeft:Bool = false;
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -488,14 +495,25 @@ class PlayState extends MusicBeatState
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
 		timeTxt.visible = updateTime = showTime;
+		
 		if(ClientPrefs.data.downScroll) timeTxt.y = FlxG.height - 44;
-		if(ClientPrefs.data.timeBarType == 'Song Name') timeTxt.text = SONG.song;
+		if(ClientPrefs.data.timeBarType == 'Song Name')
+		{
+			switch (ClientPrefs.data.botplayName) {
+				case 'Normal':
+					timeTxt.text = SONG.song;
+
+				case 'None':
+					timeTxt.text = SONG.song;
+			}
+		}
 
 		timeBar = new Bar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
 		timeBar.alpha = 0;
 		timeBar.visible = showTime;
+		
 		uiGroup.add(timeBar);
 		uiGroup.add(timeTxt);
 
@@ -567,20 +585,50 @@ class PlayState extends MusicBeatState
 		updateScore(false);
 		uiGroup.add(scoreTxt);
 
-		botplayTxt = new FlxText(400, timeBar.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		botplayTxt.scrollFactor.set();
-		botplayTxt.borderSize = 1.25;
-		botplayTxt.visible = cpuControlled;
-		uiGroup.add(botplayTxt);
+		switch (ClientPrefs.data.botplayName) {
+			case 'Normal':
+				botplayTxt = new FlxText(400, timeBar.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+				botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				botplayTxt.scrollFactor.set();
+				botplayTxt.borderSize = 1.25;
+				botplayTxt.visible = cpuControlled;
+				uiGroup.add(botplayTxt);
+			
+			case 'Song Name':
+				botplayTxt = new FlxText(400, timeBar.y + 55, FlxG.width - 800, SONG.song, 32);
+				botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				botplayTxt.scrollFactor.set();
+				botplayTxt.borderSize = 1.25;
+				botplayTxt.visible = cpuControlled;
+				uiGroup.add(botplayTxt);
+
+			case 'None':
+				botplayTxt = new FlxText(400, timeBar.y + 55, FlxG.width - 800, "", 32);
+				botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				botplayTxt.scrollFactor.set();
+				botplayTxt.borderSize = 1.25;
+				botplayTxt.visible = cpuControlled;
+				uiGroup.add(botplayTxt);
+		}
+		
 		if(ClientPrefs.data.downScroll)
+		{
 			botplayTxt.y = timeBar.y - 78;
+		}
 
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
 		comboGroup.cameras = [camHUD];
 
 		startingSong = true;
+
+		switch (ClientPrefs.data.hudColor) {
+			case 'Time Bar Only':
+				reloadTimeBarColor();
+			
+			case 'On':
+				reloadHUDColor();
+		}
 
 		#if LUA_ALLOWED
 		for (notetype in noteTypes)
@@ -649,10 +697,8 @@ class PlayState extends MusicBeatState
 		cachePopUpScore();
 
 		#if mobile
-		#if (!android)
 		addTouchPad("NONE", "P");
  		addTouchPadCamera();
-		#end
 		#end
 
 		super.create();
@@ -724,6 +770,34 @@ class PlayState extends MusicBeatState
 	public function reloadHealthBarColors() {
 		healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+	}
+
+	public function reloadTimeBarColor() {
+		var dadColor = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
+		
+		if (dadColor == FlxColor.BLACK) {
+			timeBar.setColors(0xFFFFFFFF);
+		} else {
+			timeBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+		}
+	}
+
+	public function reloadHUDColor() {
+		var dadColor = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
+
+    	if (dadColor == FlxColor.BLACK) {
+        	timeTxt.color = 0xFFFFFFFF;
+        	timeBar.setColors(0xFFFFFFFF);
+        	scoreTxt.color = 0xFFFFFFFF;
+        	botplayTxt.color = 0xFFFFFFFF;
+    	} else {
+        	var hudColor = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
+			
+        	timeTxt.color = hudColor;
+        	timeBar.setColors(hudColor);
+        	scoreTxt.color = hudColor;
+        	botplayTxt.color = hudColor;
+    	}
 	}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
@@ -1678,6 +1752,7 @@ class PlayState extends MusicBeatState
 		if ((controls.PAUSE
 			 #if android
 			 || FlxG.android.justReleased.BACK
+			 || touchPad.buttonP.justPressed
 			 #else
 			 || touchPad.buttonP.justPressed
 			 #end)
@@ -1871,21 +1946,89 @@ class PlayState extends MusicBeatState
 	}
 
 	var iconsAnimations:Bool = true;
-	function set_health(value:Float):Float // You can alter how icon animations work here
+	function set_health(value:Float):Float
 	{
-		if(!iconsAnimations || healthBar == null || !healthBar.enabled || healthBar.valueFunction == null)
+		if (!iconsAnimations || healthBar == null || !healthBar.enabled || healthBar.valueFunction == null)
 		{
 			health = value;
 			return health;
 		}
 
-		// update health bar
+		// Update health bar
 		health = value;
-		var newPercent:Null<Float> = FlxMath.remapToRange(FlxMath.bound(healthBar.valueFunction(), healthBar.bounds.min, healthBar.bounds.max), healthBar.bounds.min, healthBar.bounds.max, 0, 100);
+		var newPercent:Null<Float> = FlxMath.remapToRange(
+			FlxMath.bound(healthBar.valueFunction(), healthBar.bounds.min, healthBar.bounds.max),
+			healthBar.bounds.min, healthBar.bounds.max, 0, 100
+		);
 		healthBar.percent = (newPercent != null ? newPercent : 0);
 
-		iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 1 : 0; //If health is under 20%, change player icon to frame 1 (losing icon), otherwise, frame 0 (normal)
-		iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 1 : 0; //If health is over 80%, change opponent icon to frame 1 (losing icon), otherwise, frame 0 (normal)
+		inline function isAnimated(icon:HealthIcon):Bool
+			return icon != null && icon.animation != null && (icon.animation.exists("idle") || icon.animation.exists("winning") || icon.animation.exists("losing"));
+
+		if (iconP1 != null)
+		{
+			if (isAnimated(iconP1))
+			{
+				var anim:String = "idle";
+				if (healthBar.percent > 80 && iconP1.animation.exists("winning"))
+					anim = "winning";
+				else if (healthBar.percent < 20 && iconP1.animation.exists("losing"))
+					anim = "losing";
+
+				if (iconP1.animation.curAnim == null || iconP1.animation.curAnim.name != anim)
+					iconP1.animation.play(anim);
+			}
+			else if (iconP1.animation != null && iconP1.animation.curAnim != null)
+			{
+				var frames = iconP1.animation.curAnim.frames;
+				var numFrames = (frames != null) ? frames.length : 2;
+
+				if (numFrames >= 3)
+				{
+					if (healthBar.percent > 80)
+						iconP1.animation.curAnim.curFrame = 2;
+					else if (healthBar.percent < 20)
+						iconP1.animation.curAnim.curFrame = 1;
+					else
+						iconP1.animation.curAnim.curFrame = 0;
+				} else {
+					iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 0 : 1;
+				}
+			}
+		}
+
+		if (iconP2 != null)
+		{
+			if (isAnimated(iconP2))
+			{
+				var anim:String = "idle";
+				if (healthBar.percent > 80 && iconP2.animation.exists("losing"))
+					anim = "losing";
+				else if (healthBar.percent < 20 && iconP2.animation.exists("winning"))
+					anim = "winning";
+
+				if (iconP2.animation.curAnim == null || iconP2.animation.curAnim.name != anim)
+					iconP2.animation.play(anim);
+			}
+			else if (iconP2.animation != null && iconP2.animation.curAnim != null)
+			{
+				var frames = iconP2.animation.curAnim.frames;
+				var numFrames = (frames != null) ? frames.length : 2;
+
+				if (numFrames >= 3)
+				{
+					if (healthBar.percent > 80)
+						iconP2.animation.curAnim.curFrame = 1;
+					else if (healthBar.percent < 20)
+						iconP2.animation.curAnim.curFrame = 2;
+					else
+						iconP2.animation.curAnim.curFrame = 0;
+				} else {
+					iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 0 : 1;
+				}
+			}
+		}
+
 		return health;
 	}
 
@@ -3138,6 +3281,18 @@ class PlayState extends MusicBeatState
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
+		
+		dancingLeft = !dancingLeft;
+
+		if (ClientPrefs.data.iconBops == true) {
+			if (dancingLeft) {
+				iconP1.angle = 8;
+				iconP2.angle = 8; // maybe i should do it with tweens, but i'm lazy // i'll make it in -1.0.0, i promise
+			} else { 
+				iconP1.angle = -8;
+				iconP2.angle = -8;
+			}
+		}
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();

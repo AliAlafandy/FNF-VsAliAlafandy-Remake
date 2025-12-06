@@ -32,6 +32,7 @@ class CharacterEditorState extends MusicBeatState
 	var silhouettes:FlxSpriteGroup;
 	var dadPosition = FlxPoint.weak();
 	var bfPosition = FlxPoint.weak();
+	var gfPosition = FlxPoint.weak();
 
 	var helpBg:FlxSprite;
 	var helpTexts:FlxSpriteGroup;
@@ -92,6 +93,12 @@ class CharacterEditorState extends MusicBeatState
 		boyfriend.active = false;
 		boyfriend.offset.set(-6, 2);
 		silhouettes.add(boyfriend);
+
+		var gf:FlxSprite = new FlxSprite(gfPosition.x, gfPosition.y + 100).loadGraphic(Paths.image('editors/silhouetteGF'));
+		gf.antialiasing = ClientPrefs.data.antialiasing;
+		gf.active = false;
+		gf.offset.set(-5, 0);
+		silhouettes.add(gf);
 
 		silhouettes.alpha = 0.25;
 

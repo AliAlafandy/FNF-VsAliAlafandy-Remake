@@ -6,6 +6,7 @@ import haxe.format.JsonParser;
 import haxe.io.Bytes;
 
 import flixel.FlxObject;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUICheckBox;
@@ -37,7 +38,6 @@ import objects.HealthIcon;
 import objects.AttachedSprite;
 import objects.Character;
 import substates.Prompt;
-
 
 #if sys
 import flash.media.Sound;
@@ -188,6 +188,9 @@ class ChartingState extends MusicBeatState
 	var text:String = "";
 	public static var vortex:Bool = false;
 	public var mouseQuant:Bool = false;
+
+	public var grid:FlxBackdrop;
+	
 	override function create()
 	{
 		if (PlayState.SONG != null)
@@ -223,8 +226,14 @@ class ChartingState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		bg.scrollFactor.set();
-		bg.color = 0xFF222222;
+		bg.color = 0xFF000022;
 		add(bg);
+
+		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x330000FF, 0x0));
+		grid.velocity.set(40, 40);
+		grid.alpha = 0;
+		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(grid);
 
 		gridLayer = new FlxTypedGroup<FlxSprite>();
 		add(gridLayer);

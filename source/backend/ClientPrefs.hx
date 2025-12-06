@@ -54,9 +54,9 @@ import states.TitleState;
 		[0xFFFF884E, 0xFFFFFAF5, 0xFF6C0000]];
 
 	public var ghostTapping:Bool = true;
-	public var botplayName:String = 'Normal';
+	public var botplayName:String = 'Song Name';
 	public var timeBarType:String = 'Time Left';
-	public var hudColor:String = 'Off';
+	public var hudColor:String = 'On';
 	public var iconBops:Bool = true;
 	public var scoreZoom:Bool = true;
 	public var noReset:Bool = false;
@@ -65,8 +65,6 @@ import states.TitleState;
 	public var pauseMusic:String = 'Tea Time';
 	public var checkForUpdates:Bool = true;
 	public var comboStacking:Bool = true;
-	public var themes:String = 'Mods Engine';
-	public var gridTitle:Bool = false;
 	
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -98,7 +96,6 @@ import states.TitleState;
 	public var safeFrames:Float = 10;
 	public var guitarHeroSustains:Bool = true;
 	public var discordRPC:Bool = true;
-	public var loadingScreen:Bool = true;
 }
 
 class ClientPrefs {

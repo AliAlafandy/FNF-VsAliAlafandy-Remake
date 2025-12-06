@@ -414,16 +414,17 @@ class TitleState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					createCoolText(['This Mod for PC'], 40);
+					createCoolText(['Mods Engine by'], 40);
 				case 4:
-					addMoreText('and Mobile!!!', 40);
+					addMoreText('Ali Alafandy', 40);
+					addMoreText('Ethantobot', 40);
 				case 5:
 					deleteCoolText();
 				case 6:
-					createCoolText(['present'], -40);
-				case 8:
-					addMoreText('Ali Alafandy', -40);
+					createCoolText(['Ali Alafandy'], -40);
 					alafandyLogo.visible = true;
+				case 8:
+					addMoreText('present', -40);
 				case 9:
 					deleteCoolText();
 					alafandyLogo.visible = false;

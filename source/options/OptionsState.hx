@@ -76,7 +76,7 @@ class OptionsState extends MusicBeatState
 		if (controls.mobileC)
 		{
 			tipText = new FlxText(150, FlxG.height - 24, 0, 'Press ' + #if mobile 'C' #else 'CTRL or C' #end + ' to Go Mobile Controls Menu', 16);
-			tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			tipText.setFormat("VCR OSD Mono", 17, FlxColor.BLUE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			tipText.borderSize = 1.25;
 			tipText.scrollFactor.set();
 			tipText.antialiasing = ClientPrefs.data.antialiasing;

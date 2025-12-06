@@ -48,7 +48,7 @@ class NotesSubState extends MusicBeatSubstate
 	var tipTxt:FlxText;
 
 	public function new() {
-                controls.isInSubstate = true;
+        controls.isInSubstate = true;
 
 		super();
 		
@@ -57,7 +57,7 @@ class NotesSubState extends MusicBeatSubstate
 		#end
 		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFEA71FD;
+		bg.color = 0xFF000080;
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
@@ -104,6 +104,7 @@ class NotesSubState extends MusicBeatSubstate
 
 		var text:Alphabet = new Alphabet(sighPosX, 86, sigh, false);
 		text.alignment = CENTERED;
+		text.color = 0xFF0000FF;
 		text.setScale(0.4);
 		add(text);
 

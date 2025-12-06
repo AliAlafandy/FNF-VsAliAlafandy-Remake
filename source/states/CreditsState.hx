@@ -49,7 +49,7 @@ class CreditsState extends MusicBeatState
 
 		#if mobile
 		var defaultListMobile:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			['Vs Ali Alafandy Team'],
+			['VsAA Team'],
 			['Ali Alafandy', 'alafandy', 'The Head of This Mod', 'https://youtube.com/@alialafandy', '000080'],
 			[''],
 			['Mods Engine Team'],
@@ -89,7 +89,7 @@ class CreditsState extends MusicBeatState
 		];
 		#else
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			['Vs Ali Alafandy Team'],
+			['VsAA Team'],
 			['Ali Alafandy', 'alafandy', 'The Head of This Mod', 'https://youtube.com/@alialafandy', '000080'],
 			[''],
 			['Mods Engine Team'],

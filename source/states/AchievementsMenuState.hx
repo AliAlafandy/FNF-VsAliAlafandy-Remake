@@ -40,12 +40,13 @@ class AchievementsMenuState extends MusicBeatState
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 
-		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
+		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		menuBG.antialiasing = ClientPrefs.data.antialiasing;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
 		menuBG.scrollFactor.set();
+		menuBG.color = 0xFF000080;
 		add(menuBG);
 
 		grpOptions = new FlxSpriteGroup();
@@ -98,11 +99,11 @@ class AchievementsMenuState extends MusicBeatState
 		add(box);
 		
 		nameText = new FlxText(50, box.y + 10, FlxG.width - 100, "", 32);
-		nameText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
+		nameText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.BLUE, CENTER);
 		nameText.scrollFactor.set();
 
 		descText = new FlxText(50, nameText.y + 38, FlxG.width - 100, "", 24);
-		descText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER);
+		descText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.BLUE, CENTER);
 		descText.scrollFactor.set();
 
 		progressBar = new Bar(0, descText.y + 52);
@@ -111,7 +112,7 @@ class AchievementsMenuState extends MusicBeatState
 		progressBar.enabled = false;
 		
 		progressTxt = new FlxText(50, progressBar.y - 6, FlxG.width - 100, "", 32);
-		progressTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		progressTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.BLUE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		progressTxt.scrollFactor.set();
 		progressTxt.borderSize = 2;
 
@@ -225,13 +226,11 @@ class AchievementsMenuState extends MusicBeatState
 			#end
 		}
 
-		if (controls.BACK)
-		{
+		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 			goingBack = true;
 		}
-		
 		super.update(elapsed);
 	}
 
@@ -282,7 +281,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 
 	public function new()
 	{
-        controls.isInSubstate = true;
+                controls.isInSubstate = true;
 
 		super();
 
@@ -299,7 +298,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		
 		var state:AchievementsMenuState = cast FlxG.state;
 		var text:FlxText = new FlxText(50, text.y + 90, FlxG.width - 100, state.options[state.curSelected].displayName, 40);
-		text.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.RED, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.scrollFactor.set();
 		text.borderSize = 2;
 		add(text);
@@ -327,15 +326,14 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		if(controls.BACK)
 		{
 			close();
-            controls.isInSubstate = false;
+                        controls.isInSubstate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			return;
 		}
 
 		super.update(elapsed);
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P)
-		{
+		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
 			onYes = !onYes;
 			updateOptions();
 		}
@@ -364,13 +362,12 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 						onUpdate: function(twn:FlxTween) state.progressBar.updateBar()
 					});
 				}
-				
 				Achievements.save();
 				FlxG.save.flush();
 
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
-            controls.isInSubstate = false;
+                        controls.isInSubstate = false;
 			close();
 			return;
 		}

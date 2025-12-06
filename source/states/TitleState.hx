@@ -421,10 +421,9 @@ class TitleState extends MusicBeatState
 				case 5:
 					deleteCoolText();
 				case 6:
-					createCoolText(['Ali Alafandy'], -40);
 					alafandyLogo.visible = true;
 				case 8:
-					addMoreText('present', -40);
+					createCoolText(['present'], -40);
 				case 9:
 					deleteCoolText();
 					alafandyLogo.visible = false;

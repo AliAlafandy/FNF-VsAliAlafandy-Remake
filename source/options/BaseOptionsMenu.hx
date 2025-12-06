@@ -47,27 +47,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		#end
 		
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		
-		switch (ClientPrefs.data.themes) {
-			case 'Mods Engine':
-				bg.color = 0xFF000080;
-			
-			case 'Psych Engine':
-				bg.color = 0xFFEA71FD;
-		}
-		
+		bg.color = 0xFF000080;
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 
-		switch (ClientPrefs.data.themes) {
-			case 'Mods Engine':
-				grid = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x330000FF, 0x0));
-			
-			case 'Psych Engine':
-				grid = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-		}
-		
+		grid = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x330000FF, 0x0));
 		grid.velocity.set(40, 40);
 		grid.alpha = 0;
 		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});

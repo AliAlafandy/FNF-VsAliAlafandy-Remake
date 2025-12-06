@@ -89,13 +89,7 @@ class FPSCounter extends TextField
 		os +
 		engineVersion;
 
-		switch (ClientPrefs.data.themes) {
-			case 'Mods Engine':
-				textColor = 0xFF0000FF;
-			
-			case 'Psych Engine':
-				textColor = 0xFFFFFFFF;
-		}
+		textColor = 0xFF0000FF;
 		
 		if (currentFPS < FlxG.drawFramerate * 0.5)
 			textColor = 0xFFFF0000;

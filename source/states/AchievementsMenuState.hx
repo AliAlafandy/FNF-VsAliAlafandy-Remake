@@ -309,7 +309,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		yesText.scrollFactor.set();
 		
 		for(letter in yesText.letters)
-			letter.color = FlxColor.GREEN;
+			letter.color = FlxColor.RED;
 		
 		add(yesText);
 		noText = new Alphabet(0, text.y + 120, 'No', true);

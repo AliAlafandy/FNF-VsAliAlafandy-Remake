@@ -238,12 +238,12 @@ class TitleState extends MusicBeatState
 
 		credTextShit.visible = false;
 
-		alafandyLogo = new FlxSprite(0, 80).loadGraphic(Paths.image('alafandy_logo'));
+		alafandyLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('alafandy_logo'));
 		add(alafandyLogo);
 		alafandyLogo.visible = false;
 		alafandyLogo.setGraphicSize(Std.int(alafandyLogo.width * 0.8));
 		alafandyLogo.updateHitbox();
-		alafandyLogo.screenCenter(X);
+		alafandyLogo.screenCenter();
 		alafandyLogo.antialiasing = ClientPrefs.data.antialiasing;
 
 		if (initialized)
@@ -370,7 +370,8 @@ class TitleState extends MusicBeatState
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
 			money.screenCenter(X);
 			money.y += (i * 60) + 200 + offset;
-			if(credGroup != null && textGroup != null) {			credGroup.add(money);
+			if(credGroup != null && textGroup != null) {
+				credGroup.add(money);
 				textGroup.add(money);
 			}
 		}
@@ -422,8 +423,9 @@ class TitleState extends MusicBeatState
 					deleteCoolText();
 				case 6:
 					alafandyLogo.visible = true;
+					createCoolText([''], 40);
 				case 8:
-					createCoolText(['present'], 80);
+					addMoreText('present', 40);
 				case 9:
 					deleteCoolText();
 					alafandyLogo.visible = false;

@@ -74,6 +74,7 @@ class NoteOffsetState extends MusicBeatState
 
 		// Combo stuff
 		coolText = new FlxText(0, 0, 0, '', 32);
+		coolText.color = FlxColor.BLUE;
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.35;
 
@@ -109,7 +110,6 @@ class NoteOffsetState extends MusicBeatState
 
 		dumbTexts = new FlxTypedGroup<FlxText>();
 		dumbTexts.cameras = [camHUD];
-		dumbTexts.color = FlxColor.BLUE;
 		add(dumbTexts);
 		createTexts();
 
@@ -158,7 +158,7 @@ class NoteOffsetState extends MusicBeatState
 		changeModeText.cameras = [camHUD];
 		add(changeModeText);
 		
-		controllerPointer = new FlxShapeCircle(0, 0, 20, {thickness: 0}, FlxColor.BLUE);
+		controllerPointer = new FlxShapeCircle(0, 0, 20, {thickness: 0}, FlxColor.WHITE);
 		controllerPointer.offset.set(20, 20);
 		controllerPointer.screenCenter();
 		controllerPointer.alpha = 0.6;

@@ -73,7 +73,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(yesText);
 		
 		for(letter in yesText.letters)
-			letter.color = FlxColor.GREEN;
+			letter.color = FlxColor.RED;
 		
 		noText = new Alphabet(0, text.y + 150, 'No', true);
 		noText.screenCenter(X);

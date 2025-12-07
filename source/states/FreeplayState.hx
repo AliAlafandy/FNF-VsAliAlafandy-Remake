@@ -141,6 +141,7 @@ class FreeplayState extends MusicBeatState
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
+		diffText.color = scoreText.color;
 		add(diffText);
 
 		add(scoreText);
@@ -178,7 +179,7 @@ class FreeplayState extends MusicBeatState
 		bottomString = leText;
 		var size:Int = 16;
 		bottomText = new FlxText(bottomBG.x, bottomBG.y + 4, FlxG.width, leText, size);
-		bottomText.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, CENTER);
+		bottomText.setFormat(Paths.font("vcr.ttf"), size, FlxColor.BLUE, CENTER);
 		bottomText.scrollFactor.set();
 		add(bottomText);
 		

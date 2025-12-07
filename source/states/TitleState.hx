@@ -81,7 +81,7 @@ class TitleState extends MusicBeatState
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
-				var curVersion:String = MainMenuState.psychEngineVersion.trim();
+				var curVersion:String = MainMenuState.modVersion.trim();
 				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
 				if(updateVersion != curVersion) {
 					trace('versions arent matching!');
@@ -238,7 +238,7 @@ class TitleState extends MusicBeatState
 
 		credTextShit.visible = false;
 
-		alafandyLogo = new FlxSprite(0, 40).loadGraphic(Paths.image('alafandy_logo'));
+		alafandyLogo = new FlxSprite(0, 80).loadGraphic(Paths.image('alafandy_logo'));
 		add(alafandyLogo);
 		alafandyLogo.visible = false;
 		alafandyLogo.setGraphicSize(Std.int(alafandyLogo.width * 0.8));
@@ -423,7 +423,7 @@ class TitleState extends MusicBeatState
 				case 6:
 					alafandyLogo.visible = true;
 				case 8:
-					createCoolText(['present'], 40);
+					createCoolText(['present'], 80);
 				case 9:
 					deleteCoolText();
 					alafandyLogo.visible = false;

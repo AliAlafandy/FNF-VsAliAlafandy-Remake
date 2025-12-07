@@ -298,7 +298,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		
 		var state:AchievementsMenuState = cast FlxG.state;
 		var text:FlxText = new FlxText(50, text.y + 90, FlxG.width - 100, state.options[state.curSelected].displayName, 40);
-		text.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.RED, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.CYAN, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.scrollFactor.set();
 		text.borderSize = 2;
 		add(text);
@@ -307,7 +307,10 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		yesText.screenCenter(X);
 		yesText.x -= 200;
 		yesText.scrollFactor.set();
-		for(letter in yesText.letters) letter.color = FlxColor.RED;
+		
+		for(letter in yesText.letters)
+			letter.color = FlxColor.GREEN;
+		
 		add(yesText);
 		noText = new Alphabet(0, text.y + 120, 'No', true);
 		noText.screenCenter(X);
@@ -326,7 +329,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		if(controls.BACK)
 		{
 			close();
-                        controls.isInSubstate = false;
+            controls.isInSubstate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			return;
 		}

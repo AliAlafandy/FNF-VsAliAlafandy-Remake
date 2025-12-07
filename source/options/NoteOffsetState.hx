@@ -109,6 +109,7 @@ class NoteOffsetState extends MusicBeatState
 
 		dumbTexts = new FlxTypedGroup<FlxText>();
 		dumbTexts.cameras = [camHUD];
+		dumbTexts.color = FlxColor.BLUE;
 		add(dumbTexts);
 		createTexts();
 

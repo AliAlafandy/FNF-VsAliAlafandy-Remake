@@ -97,7 +97,7 @@ class CharacterEditorState extends MusicBeatState
 		var gf:FlxSprite = new FlxSprite(gfPosition.x, gfPosition.y).loadGraphic(Paths.image('editors/silhouetteGF'));
 		gf.antialiasing = ClientPrefs.data.antialiasing;
 		gf.active = false;
-		gf.offset.set(2, 2);
+		gf.offset.set(5, 5);
 		silhouettes.add(gf);
 
 		silhouettes.alpha = 0.25;

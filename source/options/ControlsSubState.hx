@@ -114,7 +114,7 @@ class ControlsSubState extends MusicBeatSubstate
 		add(text);
 
 		#if mobile
-		addTouchPad("LEFT_FULL", "A_B_C");
+		addTouchPad("LEFT_FULL", "B");
 		#end
 
 		createTexts();
